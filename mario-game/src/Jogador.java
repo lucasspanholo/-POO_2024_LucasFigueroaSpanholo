@@ -11,6 +11,14 @@ public class Jogador {
         this.id = id;
     }
 
+    public Jogador(Integer id, String nome, Integer nivel, Integer pontuacao, Integer moedas) {
+        this.id = id;
+        this.nome = nome;
+        this.nivel = nivel;
+        this.pontuacao = pontuacao;
+        this.moedas = moedas;
+    }
+
     public Integer getId() {
         return id;
     }

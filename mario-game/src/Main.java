@@ -13,6 +13,13 @@ public class Main {
             String nomeJogador = scanner.next();
             System.out.println("ID: ");
             Integer id = scanner.nextInt();
+            for (Jogador jogador : jogadorList){
+                while (jogador.getId().equals(id)){
+                    System.out.println("ID já existe, repita:");
+                    System.out.println("ID: ");
+                    id = scanner.nextInt();
+                }
+            }
             System.out.println("Nivel: ");
             Integer nivelJogador = scanner.nextInt();
             System.out.println("Pontuacao: ");
@@ -56,7 +63,7 @@ public class Main {
     }
 
     private static Jogador criarJogador(Integer id, String nome, Integer nivel, Integer pontuacao, Integer moedas){
-        Jogador jogador = new Jogador(id);
+        Jogador jogador = new Jogador(id,nome,nivel,pontuacao,moedas);
         return jogador;
     }
 }
