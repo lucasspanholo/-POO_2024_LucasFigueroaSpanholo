@@ -1,10 +1,15 @@
 import java.lang.*;
 public class Vestido extends Roupa {
 
-    private String _tipoDecote;
     @Override
     public double calcularPrecoFinal(double acrescimo) {
-        return getPreco() + acrescimo;
+        precoRoupa *= 0.80;
+        precoRoupa += acrescimo;
+        return precoRoupa;
+    }
+    public void defineVestido(String tamanho, String cor) {
+        tamanhoRoupa = tamanho;
+        corRoupa = cor;
     }
 
     @Override
@@ -19,23 +24,12 @@ public class Vestido extends Roupa {
 
     @Override
     public void setPreco(double preco) {
-
+        precoRoupa = preco;
     }
 
     @Override
     public String getMarca() {
         return null;
     }
-
-    public String getTipoDecote() {
-        return _tipoDecote;
-    }
-
-    public void setTipoDecote(String tipoDecote) {
-        _tipoDecote = tipoDecote;
-    }
-
-    public Vestido(String _tipoDecote) {
-        _tipoDecote = _tipoDecote;
-    }
 }
+

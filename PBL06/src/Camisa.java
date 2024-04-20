@@ -2,15 +2,25 @@ import static java.lang.System.*;
 
 public class Camisa extends Roupa{
 
-
-    private boolean mangaCamisa;
     @Override
-    public void calcularPrecoFinal(double acrescimo) {
-        System.out.println();
+    public double calcularPrecoFinal(double acrescimo) {
+        precoRoupa *= 0.9;
+        precoRoupa += acrescimo;
+        return precoRoupa;
+    }
+
+    public void defineCamisa(String tamanho, String cor) {
+        tamanhoRoupa = tamanho;
+        corRoupa = cor;
     }
 
     @Override
     public String getNome(){
+        return null;
+    }
+
+    @Override
+    public String getMarca() {
         return null;
     }
 
@@ -21,19 +31,8 @@ public class Camisa extends Roupa{
 
     @Override
     public void setPreco(double preco) {
-
+        precoRoupa = preco;
     }
 
-    @Override
-    public String getMarca() {
-        return null;
-    }
 
-    public boolean isMangaCamisa() {
-        return mangaCamisa;
-    }
-
-    public void setMangaCamisa(boolean mangaCamisa) {
-        this.mangaCamisa = mangaCamisa;
-    }
 }

@@ -1,9 +1,18 @@
 public class Calca extends Roupa{
 
-    private String _tipoCalca;
+    public void defineCalca(String tamanho, String cor) {
+        tamanhoRoupa = tamanho;
+        corRoupa = cor;
+    }
+    public Calca(){
+
+    }
+
     @Override
     public double calcularPrecoFinal(double acrescimo) {
-        return getPreco() + acrescimo;
+        precoRoupa *= 0.85;
+        precoRoupa += acrescimo;
+        return precoRoupa;
     }
 
     @Override
@@ -18,7 +27,7 @@ public class Calca extends Roupa{
 
     @Override
     public void setPreco(double preco) {
-
+        precoRoupa = preco;
     }
 
     @Override
@@ -26,13 +35,6 @@ public class Calca extends Roupa{
         return null;
     }
 
-    public String getTipoCalca() {
-        return _tipoCalca;
-    }
-
-    public void setTipoCalca(String tipoCalca) {
-        _tipoCalca = tipoCalca;
-    }
 
     public Calca(String _tipoCalca) {
         _tipoCalca = _tipoCalca;
