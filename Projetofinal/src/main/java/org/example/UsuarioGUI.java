@@ -1,4 +1,5 @@
 package org.example;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -29,7 +30,7 @@ public class UsuarioGUI extends Application {
 
         vboxUsuarios.getChildren().add(btnNovoUsuario);
 
-        Scene scene = new Scene(vboxUsuarios, 400, 300);
+        Scene scene = new Scene(vboxUsuarios, 400, 400); // Aumentado para acomodar novos campos
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -55,15 +56,36 @@ public class UsuarioGUI extends Application {
         emailInput.setPromptText("Digite o e-mail");
         GridPane.setConstraints(emailInput, 1, 1);
 
+        Label telefoneLabel = new Label("Telefone:");
+        GridPane.setConstraints(telefoneLabel, 0, 2);
+        TextField telefoneInput = new TextField();
+        telefoneInput.setPromptText("Digite o telefone");
+        GridPane.setConstraints(telefoneInput, 1, 2);
+
+        Label enderecoLabel = new Label("Endereço:");
+        GridPane.setConstraints(enderecoLabel, 0, 3);
+        TextField enderecoInput = new TextField();
+        enderecoInput.setPromptText("Digite o endereço");
+        GridPane.setConstraints(enderecoInput, 1, 3);
+
+        Label dataNascimentoLabel = new Label("Data de Nascimento:");
+        GridPane.setConstraints(dataNascimentoLabel, 0, 4);
+        TextField dataNascimentoInput = new TextField();
+        dataNascimentoInput.setPromptText("Digite a data de nascimento");
+        GridPane.setConstraints(dataNascimentoInput, 1, 4);
+
         Button cadastrarButton = new Button("Cadastrar");
-        GridPane.setConstraints(cadastrarButton, 1, 2);
+        GridPane.setConstraints(cadastrarButton, 1, 5);
 
         cadastrarButton.setOnAction(event -> {
             String nome = nomeInput.getText();
             String email = emailInput.getText();
+            String telefone = telefoneInput.getText();
+            String endereco = enderecoInput.getText();
+            String dataNascimento = dataNascimentoInput.getText();
 
-            if (!nome.isEmpty() && !email.isEmpty()) {
-                Usuario novoUsuario = new Usuario(nome, email);
+            if (!nome.isEmpty() && !email.isEmpty() && !telefone.isEmpty() && !endereco.isEmpty() && !dataNascimento.isEmpty()) {
+                Usuario novoUsuario = new Usuario(nome, email, telefone, endereco, dataNascimento);
                 usuarioDAO.inserir(novoUsuario);
                 novoUsuarioStage.close();
                 atualizarListaUsuarios();
@@ -76,9 +98,9 @@ public class UsuarioGUI extends Application {
             }
         });
 
-        grid.getChildren().addAll(nomeLabel, nomeInput, emailLabel, emailInput, cadastrarButton);
+        grid.getChildren().addAll(nomeLabel, nomeInput, emailLabel, emailInput, telefoneLabel, telefoneInput, enderecoLabel, enderecoInput, dataNascimentoLabel, dataNascimentoInput, cadastrarButton);
 
-        Scene scene = new Scene(grid, 300, 150);
+        Scene scene = new Scene(grid, 300, 250); // Ajustado para acomodar novos campos
         novoUsuarioStage.setScene(scene);
         novoUsuarioStage.show();
     }
@@ -98,8 +120,11 @@ public class UsuarioGUI extends Application {
                 Label idLabel = new Label("ID: " + usuario.getId());
                 Label nomeLabel = new Label("Nome: " + usuario.getNome());
                 Label emailLabel = new Label("E-mail: " + usuario.getEmail());
+                Label telefoneLabel = new Label("Telefone: " + usuario.getTelefone());
+                Label enderecoLabel = new Label("Endereço: " + usuario.getEndereco());
+                Label dataNascimentoLabel = new Label("Data de Nascimento: " + usuario.getDataNascimento());
 
-                userInfo.getChildren().addAll(idLabel, nomeLabel, emailLabel);
+                userInfo.getChildren().addAll(idLabel, nomeLabel, emailLabel, telefoneLabel, enderecoLabel, dataNascimentoLabel);
                 vboxUsuarios.getChildren().add(userInfo);
             }
         }

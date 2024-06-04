@@ -1,4 +1,5 @@
 package org.example;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,13 @@ public class UsuarioDAO {
     }
 
     public void inserir(Usuario usuario) {
-        String sql = "INSERT INTO Usuarios (nome, email) VALUES (?, ?)";
+        String sql = "INSERT INTO Usuarios (nome, email, telefone, endereco, dataNascimento) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getTelefone());
+            stmt.setString(4, usuario.getEndereco());
+            stmt.setString(5, usuario.getDataNascimento());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir usuário: " + e.getMessage());
@@ -31,7 +35,7 @@ public class UsuarioDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("email"));
+                return new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), rs.getString("endereco"), rs.getString("dataNascimento"));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar usuário por id: " + e.getMessage());
@@ -45,7 +49,7 @@ public class UsuarioDAO {
         try (Statement stmt = conexao.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                usuarios.add(new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("email")));
+                usuarios.add(new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"), rs.getString("endereco"), rs.getString("dataNascimento")));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar usuários: " + e.getMessage());
@@ -54,11 +58,14 @@ public class UsuarioDAO {
     }
 
     public void atualizar(Usuario usuario) {
-        String sql = "UPDATE Usuarios SET nome = ?, email = ? WHERE id = ?";
+        String sql = "UPDATE Usuarios SET nome = ?, email = ?, telefone = ?, endereco = ?, dataNascimento = ? WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
-            stmt.setInt(3, usuario.getId());
+            stmt.setString(3, usuario.getTelefone());
+            stmt.setString(4, usuario.getEndereco());
+            stmt.setString(5, usuario.getDataNascimento());
+            stmt.setInt(6, usuario.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar usuário: " + e.getMessage());
